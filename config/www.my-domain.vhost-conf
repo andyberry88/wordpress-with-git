@@ -1,0 +1,11 @@
+# NameVirtualHost isnt needed since it already defined in the default apache config
+#NameVirtualHost *:80
+
+<VirtualHost *:80>
+    Include <path where git repo is checkout out>/config/*.conf
+        
+    Use tt_vHost www.my-domain.com <path where git repo is checkout out>
+
+    Use tt_rpaf <RPAF IP1 > <RPAF IP 2>
+
+</VirtualHost>
