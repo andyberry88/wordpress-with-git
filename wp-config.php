@@ -1,4 +1,8 @@
 <?php
+
+define('MAINTENANCE_MODE', false);
+
+
 /**
  * The base configurations of the WordPress.
  *
@@ -14,21 +18,30 @@
  * @package WordPress
  */
 
-define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wordpress');
-define('WP_HOME',    'http://' . $_SERVER['SERVER_NAME']);
+if (empty($_SERVER['SERVER_NAME']))
+{
+    $_SERVER['SERVER_NAME'] = "some.domain.com";
+}
+
+define('WP_SERVER_NAME', $_SERVER['SERVER_NAME']);
+define('WP_SITEURL', 'http://' . WP_SERVER_NAME . '/wordpress');
+define('WP_HOME',    'http://' . WP_SERVER_NAME);
 define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content');
-define('WP_CONTENT_URL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp-content');
-define('WP_DEFAULT_THEME', 'set_your_theme_here');
+define('WP_CONTENT_URL', '/wp-content');
+define('WP_PLUGIN_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins');
+define('WP_PLUGIN_URL', '/wp-content/plugins');
+define('PLUGINDIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins' );
+define('WP_DEFAULT_THEME', '');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
+define('DB_NAME', '<DATABASE NAME>');
 
 /** MySQL database username */
-define('DB_USER', 'username_here');
+define('DB_USER', '<DATABASE USER>');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'password_here');
+define('DB_PASSWORD', '<DATABASE PASSWORD>');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -48,14 +61,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'put your unique phrase here');
-define('SECURE_AUTH_KEY',  'put your unique phrase here');
-define('LOGGED_IN_KEY',    'put your unique phrase here');
-define('NONCE_KEY',        'put your unique phrase here');
-define('AUTH_SALT',        'put your unique phrase here');
-define('SECURE_AUTH_SALT', 'put your unique phrase here');
-define('LOGGED_IN_SALT',   'put your unique phrase here');
-define('NONCE_SALT',       'put your unique phrase here');
+define('AUTH_KEY',         '<GENERATE SOME KEYS>');
+define('SECURE_AUTH_KEY',  '<GENERATE SOME KEYS>');
+define('LOGGED_IN_KEY',    '<GENERATE SOME KEYS>');
+define('NONCE_KEY',        '<GENERATE SOME KEYS>');
+define('AUTH_SALT',        '<GENERATE SOME KEYS>');
+define('SECURE_AUTH_SALT', '<GENERATE SOME KEYS>');
+define('LOGGED_IN_SALT',   '<GENERATE SOME KEYS>');
+define('NONCE_SALT',       '<GENERATE SOME KEYS>');
 
 /**#@-*/
 
@@ -88,9 +101,67 @@ define('WP_DEBUG', false);
 
 /* That's all, stop editing! Happy blogging. */
 
+
+/**************** Custom config ****************/
+
+/**
+ * force direct access when adding plugins
+ *   ie. dont try to ftp files
+ */
+define('FS_METHOD', 'direct');
+
+/** 
+ * uploads directory
+ */
+define( 'UPLOADS', '../wp-content/media' );
+
+/**
+ * post revisions
+ *  -1 = store every revision
+ */
+define( 'WP_POST_REVISIONS', -1);
+
+/** 
+ * empty trash every 2 weeks
+ */
+define('EMPTY_TRASH_DAYS', 14 );
+
+/**
+ * set php memory
+ */
+define('WP_MEMORY_LIMIT', '64M');
+
+/**
+ * disable wp-cron - we do it ourselves via a cron job
+ */
+define('DISABLE_WP_CRON', true);
+
+
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+	define('ABSPATH', dirname(__FILE__) . '/wordpress/');
+
+
+function is_user_logged_in() {
+    $loggedin = false;
+    foreach ( (array) $_COOKIE as $cookie => $value ) {
+        if ( stristr($cookie, 'wordpress_logged_in_') )
+            $loggedin = true;
+    }
+    return $loggedin;
+}
+
+if ( MAINTENANCE_MODE && !stristr($_SERVER['REQUEST_URI'], '/wp-admin') 
+		&& !stristr($_SERVER['REQUEST_URI'], '/wp-login.php') && !is_user_logged_in() ) {
+	if ( file_exists( WP_CONTENT_DIR . '/maintenance.php' ) ) {
+		require_once( WP_CONTENT_DIR . '/maintenance.php' );
+		die();
+	}
+}
+
 
 /** Sets up WordPress vars and included files. */
-require_once(ABSPATH . 'wp-settings.php');
+if ( !defined('LOAD_WP') || LOAD_WP )
+{
+    require_once(ABSPATH . 'wp-settings.php');
+}
