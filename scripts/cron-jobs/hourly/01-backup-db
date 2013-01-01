@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pushd $(dirname $0) >/dev/null
+
+cd ../..
+./backup-db.sh
+./autocommit-dir.sh ../backup
+
+popd >/dev/null
+

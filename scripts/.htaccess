@@ -1,0 +1,8 @@
+order deny,allow
+deny from all
+# allow from github ips
+allow from 207.97.227.253 50.57.128.197 108.171.174.178
+# allow from local ips
+allow from 192.168.0
+# allow from local (dev) ips
+allow from 10.211.55.2 

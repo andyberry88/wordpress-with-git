@@ -1,0 +1,12 @@
+# m h  dom mon dow   command
+
+# every 10 minutes
+*/10 * * * * <path where git repo is checkout out>/scripts/cron-jobs/exec-scripts.sh periodically >/dev/null
+
+@hourly <path where git repo is checkout out>/scripts/cron-jobs/exec-scripts.sh hourly >/dev/null
+
+@daily <path where git repo is checkout out>/scripts/cron-jobs/exec-scripts.sh daily >/dev/null
+
+@weekly <path where git repo is checkout out>/scripts/cron-jobs/exec-scripts.sh weekly >/dev/null
+
+@monthly <path where git repo is checkout out>/scripts/cron-jobs/exec-scripts.sh monthly >/dev/null

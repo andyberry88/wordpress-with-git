@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pushd $(dirname $0) >/dev/null
+
+cd ../../..
+
+tagName=`date +%Y.%m`
+git tag -a $tagName -m "automatic tag for ${tagName}"
+git push origin $tagName
+
+popd >/dev/null
+
