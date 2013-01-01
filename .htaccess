@@ -1,0 +1,29 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteCond %{HTTP_HOST} !^dev\.
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+RewriteRule wordpress/wp-content/(.*) wp-content/$1 [L]
+
+
+# prevent access to git dir
+<FilesMatch "README.md|.git/*">
+    Redirect 404 /
+</FilesMatch>
+
+# force UTF-8 
+AddDefaultCharset utf-8
+AddCharset utf-8 .html .css .js .xml .json .rss
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
