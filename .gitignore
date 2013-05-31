@@ -8,9 +8,14 @@
 *.out
 
 .project
+.idea/
+*.iml
+
 logs
+
 sitemap.xml
 sitemap.xml.gz
+
 wordpress
 
 wp-content/cache
