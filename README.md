@@ -15,21 +15,18 @@ If you notice any problems or its not working, email me: andyberry88 AT gmail DO
 
 ==============================================================================
 
--- TODO --
- - this readme needs rewriting to it makes sense, it was quickly written up based on steps taken when the scripts were originally written 
- 
-============================================================================== 
-
 To get started:
  - clone the repo
  - run ./scripts/init-submodules.sh
+ - edit wp-config.php and fill in the server name, database details and generate new keys and salts
+    - the database details already have some default values at the top of the file, delete these first
  - make sure the database has been created and there is a wordpress db user with the correct priviledges
- - edit wp-config.php and fill in the database details and generate new keys and salts
- - add the correct apache config to the website, if you change config/www.my-domain.vhost.conf and symlink to it the apache config can be checked in
-   - config/vhost.conf and config/rpaf.conf contain macros that can be used in the apache config
+ - add the correct apache config for the website
+    - the easiest way to do this is to use config/www.my-domain.vhost.conf and symlink to it so the apache config is checked in
+    - config/vhost.conf and config/rpaf.conf contain macros that can be used in the apache config
  - after restarting apache wordpress should now be ready to install itself by visiting www.my-domain.com
 
-The various scripts allow automation of database backup, restore (useful to setup a local dev machine and pushing changes to the server) and for triggering a git pull.
+The various scripts allow automation of database backup, restore (useful to setup a local dev machine and push changes to the server) and for triggering a git pull.
 The cron jobs allow a regular database backup and commit and monthly git tagging. Other cron jobs can be added in the relevant folder.
 
 To use the scripts and cron jobs:
@@ -45,15 +42,9 @@ Extra helpful things:
    - change file perms  to 600 on the checked in keys (and make sure git status doesnt think the files have changed)
    - check ssh git@github.com works and reports the correct user
   - change www-data users default shell 'chsh www-data -s /bin/bash' - it makes life easier
-  - symlink the apache config to config/www.my-domain.vhost-conf - then apache config is checked in
-   - macros make it easier to have the same config in dev environments
  - install apache's mod-macro 'apt-get install libapache2-mod-macro' and 'a2enmod macro'
  - install apache's mod-rpaf 'apt-get install libapache2-mod-rpaf' and 'a2enmod rpaf' (only needed if behind a reverse proxy)
  - enable apache's mod expires 'a2enmod expires' and mod filter 'a2enmod filter'
  - enable apache's mod-rewrite 'a2enmod rewrite' and mod-headers 'a2enmod headers'
  - create a symlink in /etc/logrotate.d to scripts/logrotate_apache
-   - the config in the config template writes logs to the logs directory - this will make sure they get rotated
    - remember to change the path in logrotate_apache
-
-
-

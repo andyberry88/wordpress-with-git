@@ -1,0 +1,43 @@
+# taken from http://blog.mydream.com.hk/howto/linux/performance-tuning-on-apache-php-mysql-wordpress
+
+[mysqld]
+
+key_buffer              = 32M
+sort_buffer             = 1M
+join_buffer             = 8M
+max_allowed_packet      = 8M
+max_heap_table_size     = 32M
+table_cache             = 1024
+sort_buffer_size        = 8M
+read_buffer_size        = 1M
+read_rnd_buffer_size    = 768K
+myisam_sort_buffer_size = 32M
+
+thread_stack            = 192K
+thread_cache_size       = 512
+
+query_cache_type        = 1
+query_cache_limit       = 16M
+query_cache_size        = 64M
+tmp_table_size          = 32M
+
+max_write_lock_count    = 1
+
+myisam-recover          = BACKUP
+max_connections         = 200
+thread_concurrency      = 2 
+
+innodb_buffer_pool_size = 26M
+
+[isamchk]
+key_buffer              = 32M
+sort_buffer             = 32M
+read_buffer             = 16M
+write_buffer            = 16M
+ 
+[myisamchk]
+key_buffer              = 64M
+sort_buffer             = 64M
+read_buffer             = 16M
+write_buffer            = 16M
+

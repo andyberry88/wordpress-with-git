@@ -3,6 +3,26 @@
 define('MAINTENANCE_MODE', false);
 
 
+/* AFTER FORKING THE REPO DELETE THESE LINES                */
+/*  - these are default values I use for testing the repo   */
+/*    the values can be set further down                    */
+
+if (empty($_SERVER['SERVER_NAME'])) { $_SERVER['SERVER_NAME'] = "devserver"; }
+define('DB_NAME', 'wordpress-with-git');
+define('DB_USER', 'wordpressWithGit');
+define('DB_PASSWORD', 'aVerySecurePassword');
+define('AUTH_KEY',         'Wo~rz<p4K]I*@WXv6XcY[h8Tm$l^]KG&$0N_*gKq:ZQz+sB.Yu/e4mh+-1c24Pbi');
+define('SECURE_AUTH_KEY',  ';k9SET{xZTmaPz>q*b`u,?^PP@83a]dhS}eZ[+)yT|(fjAU+fcLcbWB{3&~rY@?/');
+define('LOGGED_IN_KEY',    '3<[mFbRq10vS y|TBaJa^|_Bgl,1oW|8.Gj+*p?|!4Iw}i_Es#x29]?B3* jSG=q');
+define('NONCE_KEY',        'CZJ5;g`m_$c~w)^7V|.,fB}|jr[-ZAjy;d~g||_To%fpyh/;mTf@_t^=Wc;p*r>:');
+define('AUTH_SALT',        'tz32Iw-pmIHX4frZkOqr>Ls%W.u^w8jK8s-Br5zx6Y +x+J+:G>Zj(a~+bph=6Zg');
+define('SECURE_AUTH_SALT', 'Szi9NwH0@3s`d>ha!Q5b/KBL)[;Pi5#`=RMbJTq&}6+YIG%eujb2;2L?l>O++TtP');
+define('LOGGED_IN_SALT',   '[:eP3-9CWFBU1k?gegs(~)N5+6*gNoKE-SpzXo~W(u:|+S/_Df5n4H(Mj)e&Bgp~');
+define('NONCE_SALT',       '[+J`#oq-/~S}TjufSk,}p?/L~?Vsk;)/R0=OoNo{ceAn?KN=S]qgT~lRDR{F11{;');
+
+/* ********************************************************* */
+
+
 /**
  * The base configurations of the WordPress.
  *
@@ -20,7 +40,7 @@ define('MAINTENANCE_MODE', false);
 
 if (empty($_SERVER['SERVER_NAME']))
 {
-    $_SERVER['SERVER_NAME'] = "some.domain.com";
+    $_SERVER['SERVER_NAME'] = "<YOUR.DOMAIN>";
 }
 
 define('WP_SERVER_NAME', $_SERVER['SERVER_NAME']);

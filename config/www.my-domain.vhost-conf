@@ -1,12 +1,10 @@
-# NameVirtualHost isnt needed since it already defined in the default apache config
-#NameVirtualHost *:80
+Include /var/www/wordpress-with-git/config/*.conf
 
 <VirtualHost *:80>
-    Include <path where git repo is checkout out>/config/*.conf
-        
-    Use macro_vHost www.my-domain.com <path where git repo is checkout out>
-
-	# only needed if apache is behind a reverse proxy
-    #Use macro_rpaf <RPAF IP1 > <RPAF IP 2> 
-
+    #Use wp_vHost my-domain.com /var/www/wordpress-with-git
+    Use wp_vHost wordpress-with-git /var/www/wordpress-with-git
 </VirtualHost>
+
+#<VirtualHost *:443>
+#    Use wp_vHost_SSL my-domain.com /var/www/wordpress-with-git
+#</VirtualHost>
