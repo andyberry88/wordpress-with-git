@@ -32,6 +32,7 @@ The cron jobs allow a regular database backup and commit and monthly git tagging
 To use the scripts and cron jobs:
   - make sure PHP CLI in installed
   - in scripts/cron-jobs/crontab.txt replace "<path where git repo is checkout out>" with the directory where the git repo is checked out on the server
+  - do the same for scripts/cron-jobs/hourly/99-commit-changes 
   - 'su www-data' and use 'crontab -l' to check crontab is empty
      - run 'crontab scripts/cron-jobs/crontab.txt' if it is empty, otherwise manually add them from crontab.txt
   - if you want the webserver to automatically pull commits you will need to use the relevant hook to hit www.your-domain.com/scripts/git-pull.php
