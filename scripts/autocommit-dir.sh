@@ -7,6 +7,6 @@ pushd $COMMIT_DIR >/dev/null
 
 git add -A
 git commit -m "auto commit of $(basename `pwd`) at `date`" $DRY_RUN
-git push origin master $DRY_RUN
+git push -q origin master $DRY_RUN
 
 popd >/dev/null

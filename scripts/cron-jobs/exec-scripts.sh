@@ -13,7 +13,10 @@ pushd $SCRIPT_DIR >/dev/null
 
 for script in `ls *`
 do
-    ./$script
+if [ -x $script ]
+    then
+        ./$script
+    fi
 done
 
 popd >/dev/null
